@@ -78,6 +78,20 @@ Token Interpreter::get_next_token ()
 		goto ret;
 	}
 
+	if(this->current_char == '*')
+	{
+		token = Token(MUL, this->current_char);
+		this->advance();
+		goto ret;
+	}
+
+	if(this->current_char == '/')
+	{
+		token = Token(DIV, this->current_char);
+		this->advance();
+		goto ret;
+	}
+
 	this->error();
 	ret:
 		return token;
@@ -95,14 +109,24 @@ int Interpreter::eval()
 		eat(PLUS);
 	else if(type == MINUS)
 		eat(MINUS);
+	else if(type == MUL)
+		eat(MUL);
+	else if(type == DIV)
+		eat(DIV);
 
 	Token right = this->current_token;
 	eat(INTEGER);
 	int value;
 
 	if(type == PLUS)
-		return left.get_value() + right.get_value();
-	return left.get_value() - right.get_value();
+		value = left.get_value() + right.get_value();
+	else if(type == MINUS)
+		value = left.get_value() - right.get_value();
+	else if(type == MUL)
+		value = left.get_value() * right.get_value();
+	else if(type == DIV)
+		value = left.get_value() / right.get_value();
+	return value;
 }
 
 
