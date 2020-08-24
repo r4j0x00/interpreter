@@ -17,23 +17,33 @@ class Token
 		int value;
 };
 
-class Interpreter
+class Lexer
 {
 	public:
-		Interpreter(std::string code);
-		int eval();
+		Lexer();
+		Lexer(std::string code);
+		Token get_next_token();
 	private:
 		int pos;
 		void skip_whitespace();
 		std::string code;
-		Token current_token;
 		char current_char;
-		Token get_next_token();
 		void error();
-		void eat(int type);
 		int size;
 		void advance();
 		int intvalue();
+};
+
+class Interpreter
+{
+	public:
+		Interpreter(Lexer lexer);
+		int eval();
+	private:
+		Lexer lexer;
+		Token current_token;
+		void error();
+		void eat(int type);
 		int factor();
 		int term();
 };
