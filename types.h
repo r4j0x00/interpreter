@@ -1,3 +1,4 @@
+#pragma once
 enum Types {
 	INTEGER,
 	PLUS,

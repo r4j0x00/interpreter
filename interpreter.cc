@@ -97,35 +97,45 @@ Token Interpreter::get_next_token ()
 		return token;
 }
 
+int Interpreter::term()
+{
+	Token token = this->current_token;
+	this->eat(INTEGER);
+	return token.get_value();
+}
+
 int Interpreter::eval()
 {
 	this->current_token = this->get_next_token();
-	Token left = this->current_token;
-	eat(INTEGER);
+	int value = this->term();
 
 	Token op = this->current_token;
 	int type = op.get_type();
-	if(type == PLUS)
-		eat(PLUS);
-	else if(type == MINUS)
-		eat(MINUS);
-	else if(type == MUL)
-		eat(MUL);
-	else if(type == DIV)
-		eat(DIV);
-
-	Token right = this->current_token;
-	eat(INTEGER);
-	int value;
-
-	if(type == PLUS)
-		value = left.get_value() + right.get_value();
-	else if(type == MINUS)
-		value = left.get_value() - right.get_value();
-	else if(type == MUL)
-		value = left.get_value() * right.get_value();
-	else if(type == DIV)
-		value = left.get_value() / right.get_value();
+	while(is_valid_operation(type))
+	{
+		if(type == PLUS)
+		{
+			eat(PLUS);
+			value += this->term();
+		}
+		else if(type == MINUS)
+		{
+			eat(MINUS);
+			value -= this->term();
+		}
+		else if(type == MUL)
+		{
+			eat(MUL);
+			value *= this->term();
+		}
+		else if(type == DIV)
+		{
+			eat(DIV);
+			value /= this->term();
+		}
+		op = this->current_token;
+		type = op.get_type();
+	}
 	return value;
 }
 

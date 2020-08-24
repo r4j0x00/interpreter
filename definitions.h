@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
+#include "types.h"
 #define is_whitespace(c) (c == ' ' || c == '\t')
 #define is_digit(d) (d >= '0' && d <= '9')
+#define is_valid_operation(op) (op == PLUS || op == MINUS || op == MUL || op == DIV)
+
 class Token
 {
 	public:
@@ -15,7 +18,8 @@ class Token
 };
 
 class Interpreter
-{	public:
+{
+	public:
 		Interpreter(std::string code);
 		int eval();
 	private:
@@ -30,4 +34,5 @@ class Interpreter
 		int size;
 		void advance();
 		int intvalue();
+		int term();
 };
