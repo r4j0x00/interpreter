@@ -7,7 +7,7 @@
 Interpreter::Interpreter (Lexer lexer)
 {
 	this->lexer = lexer;
-	this->current_token = this->lexer.get_next_token();
+	this->current_token = this->lexer.get_next_token(); // sets the first token as current_token
 }
 
 void Interpreter::error()
@@ -15,6 +15,9 @@ void Interpreter::error()
 	assert(0);
 }
 
+/* Assumes that the current_token is an integer
+   changes current_token to next token
+   returns the integer value */
 int Interpreter::factor()
 {
 	Token token = this->current_token;
@@ -22,6 +25,9 @@ int Interpreter::factor()
 	return token.get_value();
 }
 
+/* Pulls the current factor
+   loops until the next operation is not multiplication or division
+   returns the result after evaluation */
 int Interpreter::term()
 {
 	int res = this->factor();
@@ -46,6 +52,7 @@ int Interpreter::term()
 	return res;
 }
 
+// Evaluate the current expression and return the result
 int Interpreter::eval()
 {
 	int value = this->term();
@@ -70,7 +77,8 @@ int Interpreter::eval()
 	return value;
 }
 
-
+/* Check if the provided type is equal to the type of current_token
+   Set cuurent_token to next token */
 void Interpreter::eat(int type)
 {
 	if (this->current_token.get_type() == type)

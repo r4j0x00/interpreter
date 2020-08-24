@@ -7,6 +7,8 @@
 
 Lexer::Lexer() { }
 
+/* Takes the expression in the form of a string
+   Does lexical analysis and generates a sequence of tokens */
 Lexer::Lexer (std::string code)
 {
 	this->pos = 0;
@@ -22,6 +24,9 @@ void Lexer::error()
 	assert(0);
 }
 
+/* Checks if the next position is valid
+   if so, then sets the current char to the next position
+   otherwise, the current_char is set to null */
 void Lexer::advance()
 {
 	if(++this->pos >= this->size)
@@ -30,12 +35,15 @@ void Lexer::advance()
 		this->current_char = this->code[pos];
 }
 
+// advances until a non-whitespace character is found
 void Lexer::skip_whitespace()
 {
 	while (is_whitespace(this->current_char))
 		this->advance();
 }
 
+/* advances until a non-digit value is found
+   the integer value is returned */
 int Lexer::intvalue()
 {
 	std::string res;
@@ -51,6 +59,10 @@ int Lexer::intvalue()
 	return value;
 }
 
+/* Checks if the next token is available
+   if not Eof is returned
+   It's checked if the new token is valid and returned
+   otherwise errors out */
 Token Lexer::get_next_token ()
 {
 	Token token;
