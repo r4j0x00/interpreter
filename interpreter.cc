@@ -97,11 +97,35 @@ Token Interpreter::get_next_token ()
 		return token;
 }
 
-int Interpreter::term()
+int Interpreter::factor()
 {
 	Token token = this->current_token;
 	this->eat(INTEGER);
 	return token.get_value();
+}
+
+int Interpreter::term()
+{
+	int res = this->factor();
+	Token token = this->current_token;
+	int type = token.get_type();
+	while(type == MUL || type == DIV)
+	{
+		if (type == MUL)
+		{
+			this->eat(MUL);
+			res *= this->factor();
+		}
+
+		if (type == DIV)
+		{
+			this->eat(DIV);
+			res /= this->factor();
+		}
+		token = this->current_token;
+		type = token.get_type();
+	}
+	return res;
 }
 
 int Interpreter::eval()
@@ -122,16 +146,6 @@ int Interpreter::eval()
 		{
 			eat(MINUS);
 			value -= this->term();
-		}
-		else if(type == MUL)
-		{
-			eat(MUL);
-			value *= this->term();
-		}
-		else if(type == DIV)
-		{
-			eat(DIV);
-			value /= this->term();
 		}
 		op = this->current_token;
 		type = op.get_type();

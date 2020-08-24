@@ -34,5 +34,6 @@ class Interpreter
 		int size;
 		void advance();
 		int intvalue();
+		int factor();
 		int term();
 };
