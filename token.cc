@@ -3,21 +3,21 @@
 #include "definitions.h"
 
 Token::Token() {
-	type = None;
+	this->type = None;
 };
 
-Token::Token(int _type, int _value)
+Token::Token(int type, int value)
 {
-	type = _type;
-	value = _value;
+	this->type = type;
+	this->value = value;
 };
 
 int Token::get_type()
 {
-	return type;
+	return this->type;
 };
 
 int Token::get_value()
 {
-	return value;
+	return this->value;
 };

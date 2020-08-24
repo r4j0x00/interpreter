@@ -3,10 +3,10 @@
 #include "types.h"
 #include "definitions.h"
 
-Interpreter::Interpreter (std::string _code)
+Interpreter::Interpreter (std::string code)
 {
-	pos = 0;
-	code = _code;
+	this->pos = 0;
+	this->code = code;
 }
 
 void Interpreter::error()
@@ -17,11 +17,11 @@ void Interpreter::error()
 Token Interpreter::get_next_token ()
 {
 	Token token;
-	int size = code.length();
-	if (pos > size - 1)
+	int size = this->code.length();
+	if (this->pos > size - 1)
 		return Token(Eof, None);
 
-	char cur = code[pos++];
+	char cur = this->code[this->pos++];
 	if(cur >= '0' && cur <= '9')
 	{
 		token = Token(INTEGER, cur-48);
@@ -34,21 +34,21 @@ Token Interpreter::get_next_token ()
 		goto ret;
 	}
 
-	error();
+	this->error();
 	ret:
 		return token;
 }
 
 int Interpreter::eval()
 {
-	current_token = get_next_token();
-	Token left = current_token;
+	this->current_token = this->get_next_token();
+	Token left = this->current_token;
 	eat(INTEGER);
 
-	Token op = current_token;
+	Token op = this->current_token;
 	eat(PLUS);
 
-	Token right = current_token;
+	Token right = this->current_token;
 	eat(INTEGER);
 
 	return left.get_value() + right.get_value();
@@ -57,8 +57,8 @@ int Interpreter::eval()
 
 void Interpreter::eat(int type)
 {
-	if (current_token.get_type() == type)
-		current_token = get_next_token();
+	if (this->current_token.get_type() == type)
+		this->current_token = get_next_token();
 	else
-		error();
+		this->error();
 }
