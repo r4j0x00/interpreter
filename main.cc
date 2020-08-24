@@ -8,7 +8,7 @@ int main(void)
 	{
 		std::cout << ">>> ";
 		std::string code;
-		std::cin >> code;
+		std::getline(std::cin, code);
 		Interpreter interpreter(code);
 		std::cout << interpreter.eval() << '\n';
 		code.clear();
