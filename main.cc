@@ -11,6 +11,7 @@ int main(void)
 		std::cin >> code;
 		Interpreter interpreter(code);
 		std::cout << interpreter.eval() << '\n';
+		code.clear();
 	}
 	return 0;
 }

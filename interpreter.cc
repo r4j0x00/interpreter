@@ -7,6 +7,10 @@ Interpreter::Interpreter (std::string code)
 {
 	this->pos = 0;
 	this->code = code;
+	this->size = code.length();
+	if (!size)
+		this->error();
+	this->current_char = code[0];
 }
 
 void Interpreter::error()
@@ -17,20 +21,19 @@ void Interpreter::error()
 Token Interpreter::get_next_token ()
 {
 	Token token;
-	int size = this->code.length();
-	if (this->pos > size - 1)
+	if (this->pos > this->size - 1)
 		return Token(Eof, None);
 
-	char cur = this->code[this->pos++];
-	if(cur >= '0' && cur <= '9')
+	this->current_char = this->code[this->pos++];
+	if(this->current_char >= '0' && this->current_char <= '9')
 	{
-		token = Token(INTEGER, cur-48);
+		token = Token(INTEGER, this->current_char-48);
 		goto ret;
 	}
 
-	if(cur == '+')
+	if(this->current_char == '+')
 	{
-		token = Token(PLUS, cur);
+		token = Token(PLUS, this->current_char);
 		goto ret;
 	}
 

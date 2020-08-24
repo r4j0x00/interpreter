@@ -21,8 +21,9 @@ class Interpreter
 		int pos;
 		std::string code;
 		Token current_token;
+		char current_char;
 		Token get_next_token();
 		void error();
 		void eat(int type);	
-
+		int size;
 };
