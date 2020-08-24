@@ -8,7 +8,7 @@ Token::Token() {
 
 Token::Token(int type, int value)
 {
-	this->type = type;
+	this->type = type; // defined in types.h
 	this->value = value;
 };
 
