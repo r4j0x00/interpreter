@@ -21,7 +21,7 @@ class Lexer
 {
 	public:
 		Lexer();
-		Lexer(std::string code);
+		Lexer(const std::string &code);
 		Token get_next_token();
 	private:
 		int pos;

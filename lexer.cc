@@ -9,7 +9,7 @@ Lexer::Lexer() { }
 
 /* Takes the expression in the form of a string
    Does lexical analysis and generates a sequence of tokens */
-Lexer::Lexer (std::string code)
+Lexer::Lexer (const std::string &code)
 {
 	this->pos = 0;
 	this->code = code;
