@@ -9,10 +9,13 @@ int main(void)
 		std::cout << ">>> ";
 		std::string code;
 		std::getline(std::cin, code);
-		Interpreter *interpreter = new Interpreter(code);
-		std::cout << interpreter->eval() << '\n';
+		if(code.length())
+		{
+			Interpreter *interpreter = new Interpreter(code);
+			std::cout << interpreter->eval() << '\n';
+			delete interpreter;
+		}
 		code.clear();
-		delete interpreter;
 	}
 	return 0;
 }
