@@ -5,6 +5,8 @@ enum Types {
 	MINUS,
 	MUL,
 	DIV,
+	LPAREN,
+	RPAREN,
 	None,
 	Eof
 };

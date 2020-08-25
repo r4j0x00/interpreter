@@ -21,8 +21,19 @@ void Interpreter::error()
 int Interpreter::factor()
 {
 	Token token = this->current_token;
-	this->eat(INTEGER);
-	return token.get_value();
+	int value=0;
+	if(token.get_type() == INTEGER)
+	{
+		this->eat(INTEGER);
+		value = token.get_value();
+	}
+	else if(token.get_type() == LPAREN)
+	{
+		this->eat(LPAREN);
+		value = this->eval();
+		this->eat(RPAREN);
+	}
+	return value;
 }
 
 /* Pulls the current factor
@@ -63,12 +74,12 @@ int Interpreter::eval()
 	{
 		if(type == PLUS)
 		{
-			eat(PLUS);
+			this->eat(PLUS);
 			value += this->term();
 		}
 		else if(type == MINUS)
 		{
-			eat(MINUS);
+			this->eat(MINUS);
 			value -= this->term();
 		}
 		op = this->current_token;

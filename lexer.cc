@@ -107,6 +107,20 @@ Token Lexer::get_next_token ()
 		goto ret;
 	}
 
+	if(this->current_char == '(')
+	{
+		token = Token(LPAREN, this->current_char);
+		this->advance();
+		goto ret;
+	}
+
+	if(this->current_char == ')')
+	{
+		token = Token(RPAREN, this->current_char);
+		this->advance();
+		goto ret;
+	}
+
 	this->error();
 	ret:
 		return token;
