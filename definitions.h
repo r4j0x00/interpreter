@@ -3,7 +3,7 @@
 #include "types.h"
 #define is_whitespace(c) (c == ' ' || c == '\t')
 #define is_digit(d) (d >= '0' && d <= '9')
-#define is_valid_operation(op) (op == PLUS || op == MINUS)
+#define is_valid_operation(op) (op == PLUS || op == MINUS || op == MUL || op == DIV || op == LPAREN || op == RPAREN)
 
 class Token
 {

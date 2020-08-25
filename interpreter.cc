@@ -72,7 +72,7 @@ int Interpreter::eval()
 
 	Token op = this->current_token;
 	int type = op.get_type();
-	while(is_valid_operation(type))
+	while(type == PLUS || type == MINUS)
 	{
 		if(type == PLUS)
 		{
@@ -87,6 +87,8 @@ int Interpreter::eval()
 		op = this->current_token;
 		type = op.get_type();
 	}
+	if(type != Eof)
+		this->error();
 	return value;
 }
 
