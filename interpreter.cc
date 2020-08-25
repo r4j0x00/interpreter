@@ -15,7 +15,8 @@ void Interpreter::error()
 	assert(0);
 }
 
-/* Assumes that the current_token is an integer
+/* Assumes that the current_token is an integer or a left paranthesis
+   Uses recursion to evaluate parenthesized expressions
    changes current_token to next token
    returns the integer value */
 int Interpreter::factor()
@@ -31,6 +32,7 @@ int Interpreter::factor()
 	{
 		this->eat(LPAREN);
 		value = this->eval();
+		Token get_next_token();
 		this->eat(RPAREN);
 	}
 	return value;
