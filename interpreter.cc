@@ -86,8 +86,10 @@ int Interpreter::eval()
 		op = this->current_token;
 		type = op.get_type();
 	}
-	if(type != Eof)
-		this->error();
+	if(type == Eof || type == RPAREN)
+	{
+		return value;
+	} else this->error();
 	return value;
 }
 
