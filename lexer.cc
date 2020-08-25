@@ -71,7 +71,10 @@ Token Lexer::get_next_token ()
 		return Token(Eof, None);
 
 	if(is_whitespace(this->current_char))
+	{
 		this->skip_whitespace();
+		return this->get_next_token();
+	}
 
 	if(is_digit(this->current_char))
 	{

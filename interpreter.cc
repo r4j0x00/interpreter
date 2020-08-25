@@ -32,9 +32,8 @@ int Interpreter::factor()
 	{
 		this->eat(LPAREN);
 		value = this->eval();
-		Token get_next_token();
 		this->eat(RPAREN);
-	}
+	} else error();
 	return value;
 }
 
