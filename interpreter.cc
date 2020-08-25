@@ -23,12 +23,12 @@ int Interpreter::factor()
 {
 	Token token = this->current_token;
 	int value=0;
-	if(token.get_type() == INTEGER)
+	if(token.type == INTEGER)
 	{
 		this->eat(INTEGER);
-		value = token.get_value();
+		value = token.value;
 	}
-	else if(token.get_type() == LPAREN)
+	else if(token.type == LPAREN)
 	{
 		this->eat(LPAREN);
 		value = this->eval();
@@ -44,7 +44,7 @@ int Interpreter::term()
 {
 	int res = this->factor();
 	Token token = this->current_token;
-	int type = token.get_type();
+	int type = token.type;
 	while(type == MUL || type == DIV)
 	{
 		if (type == MUL)
@@ -59,7 +59,7 @@ int Interpreter::term()
 			res /= this->factor();
 		}
 		token = this->current_token;
-		type = token.get_type();
+		type = token.type;
 	}
 	return res;
 }
@@ -70,7 +70,7 @@ int Interpreter::eval()
 	int value = this->term();
 
 	Token op = this->current_token;
-	int type = op.get_type();
+	int type = op.type;
 	while(type == PLUS || type == MINUS)
 	{
 		if(type == PLUS)
@@ -84,7 +84,7 @@ int Interpreter::eval()
 			value -= this->term();
 		}
 		op = this->current_token;
-		type = op.get_type();
+		type = op.type;
 	}
 	if(type == Eof || type == RPAREN)
 	{
@@ -97,7 +97,7 @@ int Interpreter::eval()
    Set cuurent_token to next token */
 void Interpreter::eat(int type)
 {
-	if (this->current_token.get_type() == type)
+	if (this->current_token.type == type)
 		this->current_token = this->lexer.get_next_token();
 	else
 		this->error();

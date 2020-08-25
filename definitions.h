@@ -10,9 +10,6 @@ class Token
 	public:
 		Token();
 		Token(int type, int value);
-		int get_type();
-		int get_value();
-	private:
 		int type;
 		int value;
 };
